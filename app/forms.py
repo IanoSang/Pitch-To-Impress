@@ -4,6 +4,12 @@ from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationE
 from app.models import User
 
 
+def validate_username(username_to_check):
+    user = User.query.filter_by(username=username_to_check.data).first()
+    if user:
+        raise ValidationError('Username already exists! Please try a different username')
+
+
 class RegisterForm(FlaskForm):
 
     def validate_email_address(self, email_address_to_check):
@@ -16,4 +22,3 @@ class RegisterForm(FlaskForm):
     password1 = PasswordField(label='Password:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirm Password:', validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label='Sign Up')
-
