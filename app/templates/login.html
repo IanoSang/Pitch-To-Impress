@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% extends 'base.html' %}
+{%block title%}
+Login Page
+{% endblock %}
+
+{%block content %}
 <body>
-$END$
+    <div class="container-fluid">
+        <h3 class="text-center">Sign In Here</h3>
+        <div class="container">
+            <form class="form-login" method="POST" style="color: white;">
+                {{ form.hidden_tag() }}
+                {{form.username.label}}
+                {{form.username( class="form-control", placeholder="User Name" )}}
+
+                {{form.password.label}}
+                {{form.password(class="form-control", placeholder="Password" )}}
+
+                <br>
+                <div class="col text-center">
+                {{form.submit(class="btn btn-primary btn-center")}}
+                </div>
+                <br>
+                <div class="col text-center">
+                 <h3>Do not have an account?</h3>
+                    <a class="btn btn-sn btn-success" href="{{url_for('signUp_page')}}">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
-</html>
+{% endblock %}
