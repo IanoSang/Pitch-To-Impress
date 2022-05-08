@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    bio = db.Column(db.String(255))
+    # bio = db.Column(db.String(255), nullable=True)
     pitches = db.relationship('Pitch', backref='owned_user', lazy=True)
 
     @property
