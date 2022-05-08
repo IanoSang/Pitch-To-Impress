@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from app.models import User, Pitch
 
@@ -28,3 +28,8 @@ class LoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign In')
+
+
+class UpdateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about you.', validators=[DataRequired()])
+    submit = SubmitField('Submit')
