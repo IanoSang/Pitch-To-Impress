@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, abort
 from app.models import User, Pitch
 from app.forms import RegisterForm, LoginForm
 from app import db
@@ -37,7 +37,17 @@ def login_page():
         ):
             login_user(attempted_user)
             flash(f'Logged in Successfully! You logged in as: {attempted_user.username}', category='success')
-            return redirect(url_for('home_page'))
+            return redirect(url_for('profile_page'))
         else:
             flash('Invalid Username or Password!! Please try again', category='danger')
     return render_template('login.html', form=form)
+
+
+@app.route('/user/')
+def profile_page():
+    user = User.query.filter_by().first()
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile.html", user=user)
