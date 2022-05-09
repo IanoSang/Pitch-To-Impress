@@ -8,7 +8,9 @@ Registaration Page
     <div class="container-fluid">
         <h3 class="text-center">Sign Up Here</h3>
         <div class="container">
-            <form class="form-register" method="POST" style="color: white;">
+            <div class="col-lg-6 col-md-4 col-sm-4 container justify-content-center">
+                 <div class="col">
+                     <form class="form-register" method="POST" style="color: white;">
                 {{ form.hidden_tag() }}
                 {{form.username.label}}
                 {{form.username( class="form-control", placeholder="User Name" )}}
@@ -25,9 +27,12 @@ Registaration Page
                 <br>
                 <div class="col text-center">
                  <h3>Already have an account?</h3>
-                    <a class="btn btn-sn btn-success" href="#">Sign In</a>
+                    <a class="btn btn-sn btn-success mb-3" href="{{url_for('login_page')}}">Sign In</a>
                 </div>
             </form>
+                 </div>
+            </div>
+
         </div>
     </div>
 </body>
