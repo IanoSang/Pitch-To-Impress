@@ -14,6 +14,13 @@ def home_page():
     return render_template('home.html')
 
 
+@app.route('/pitches')
+@login_required
+def pitches_page():
+    pitch = Pitch.query.all()
+    return render_template('pitches.html', pitch=pitch)
+
+
 @app.route('/signUp', methods=['GET', 'POST'])
 def signUp_page():
     form = RegisterForm()
@@ -22,7 +29,8 @@ def signUp_page():
                              email_address=form.email_address.data, password=form.password1.data)
         db.session.add(use_to_create)
         db.session.commit()
-        mail_message("Welcome to watchlist","email/welcome_user",use_to_create.email_address,use_to_create=use_to_create)
+        mail_message("Welcome to watchlist", "email/welcome_user", use_to_create.email_address,
+                     use_to_create=use_to_create)
 
         return redirect(url_for('login_page'))
     if form.errors != {}:  # If there are no errors from the validations
@@ -45,6 +53,14 @@ def login_page():
         else:
             flash('Invalid Username or Password!! Please try again', category='danger')
     return render_template('login.html', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout_page():
+    logout_user()
+    flash('You have logged Out', category='info')
+    return redirect(url_for("home_page"))
 
 
 @app.route('/user/')
@@ -87,10 +103,3 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('profile'))
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("home.html"))
