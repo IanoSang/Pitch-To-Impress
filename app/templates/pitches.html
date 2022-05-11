@@ -1,9 +1,82 @@
 {% extends 'base.html' %}
 
-{% block title %}
-   Pitches Page
-{% endblock %}
+<div class="container">
+{% block content %}
 
-{% block content%}
-<h2>Pitch It Here</h2>
+<div class="p-5 rounded text-center">
+    <h1>Read, Write, Comment and Rate a Pitch</h1>
+    <p>In life, you only have 60 seconds to impress someone. 1 minute can make or break you.</p>
+    <p>Make your day. Its gone be fun people. There is power in writing and reading.</p>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <h1 class="text-center">Pitch Categories</h1>
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h5 class="card-title">The Elevator Pitch</h5>
+                        <p class="card-text">An elevator pitch is a type of speech about your company or brand.
+                            No more than 30 seconds in length (it should be short enough to cover in an elevator ride, hence its name), it’s a type of sales pitch that every sales professional should have up their sleeve.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body" style="padding-top: 60px; padding-bottom: 60px;">
+                        <h5 class="card-title">Sales Pitch</h5>
+                        <p class="card-text">A sales pitch is a well-crafted, then packaged sales presentation. A good sales pitch needs to convey the intended message concisely in a compelling manner. If the sales pitch is on point, you are on the right path to making profitable sales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h5 class="card-title">product pitch</h5>
+                        <p class="card-text">A product pitch is not much different than a sales pitch, but is specifically focused on a product or service. You'll go in-depth and emphasize how your product works, how it will solve their pain points, and the specific benefits it will bring to your customers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row container-fluid pb-5">
+{% for pitch in pitches %}
+    <div class="col-lg-6 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{pitch.title}}</h3>
+                <p class="card-text">{{pitch.content}}</p>
+                <p class="card-text text-center"><b>Category: </b>{{pitch.category_name}}</p>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a class="btn btn-primary" href="{{ url_for('comment') }}">Comment</a>
+                    </div>
+                    <div class="thumb " style="color:green">
+                        <p><i class="fa-solid fa-thumbs-up"></i>Upvotes 0</p>
+
+                        <p><i class="fa-solid fa-thumbs-down"></i>Downvotes 0</p>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+</div>
+
 {% endblock %}
+    <br><br><br>
+</div>
+

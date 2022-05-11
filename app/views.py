@@ -1,10 +1,10 @@
 from app import app
 from flask import render_template, redirect, url_for, flash, abort
-from app.models import User, Pitch
-from app.forms import RegisterForm, LoginForm, UpdateProfile
+from app.models import User, Pitch, Comment
+from app.forms import RegisterForm, LoginForm, UpdateProfile, AddPitchForm, CommentForm
 from app import db, photos
 from flask_login import login_user, login_required, logout_user, current_user
-from urllib import request
+import urllib.request as urllib
 from .email import mail_message
 
 
@@ -17,8 +17,8 @@ def home_page():
 @app.route('/pitches')
 @login_required
 def pitches_page():
-    pitch = Pitch.query.all()
-    return render_template('pitches.html', pitch=pitch)
+    pitches = Pitch.query.all()
+    return render_template('pitches.html', pitches=pitches)
 
 
 @app.route('/signUp', methods=['GET', 'POST'])
@@ -90,16 +90,50 @@ def update_profile(uname):
 
         return redirect(url_for('.profile', uname=user.username))
 
-    return render_template('profile_page/update.html', form=form)
+    return render_template('update.html', form=form)
 
 
 @app.route('/user/<uname>/update/pic', methods=['POST'])
 @login_required
 def update_pic(uname):
     user = User.query.filter_by(username=uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
+    if 'photo' in urllib.files:
+        filename = photos.save(urllib.files['photos'])
         path = f'photos/{filename}'
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('profile'))
+
+
+@app.route('/comment', methods=['GET', 'POST'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data
+        pitch_id = pitch_id
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment=comment, user_id=user_id, pitch_id=pitch_id)
+        new_comment.save_c()
+        return redirect(url_for('comment', pitch_id=pitch_id))
+    form = CommentForm()
+    return render_template('comment.html', form=form, pitch=pitch, all_comments=all_comments)
+
+
+@app.route('/addpitch', methods=['GET', 'POST'])
+def addpitch_page():
+    form = AddPitchForm()
+    if form.validate_on_submit():
+        pitch = Pitch(email=form.email.data, title=form.title.data, content=form.content.data,
+                      category_name=form.category_name.data)
+        db.session.add(pitch)
+        db.session.commit()
+        flash('Your pitch has been add success')
+        return redirect(url_for('pitches_page'))
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'There was an error in creating the pitch:(err_msg)')
+
+    return render_template('addPitch.html', form=form)

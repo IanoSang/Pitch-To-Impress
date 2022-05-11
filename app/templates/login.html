@@ -10,7 +10,7 @@ Login Page
         <div class="container">
             <div class="col-lg-6 col-md-4 col-sm-4 container justify-content-center">
                  <div class="col">
-             <form class="form-login" method="POST" style="color: white;">
+             <form class="form-login" method="POST">
                 {{ form.hidden_tag() }}
                 {{form.username.label}}
                 {{form.username( class="form-control", placeholder="User Name" )}}
@@ -33,5 +33,6 @@ Login Page
 
         </div>
     </div>
+    <br>  <br>
 </body>
 {% endblock %}

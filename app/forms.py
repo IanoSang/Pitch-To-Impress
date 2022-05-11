@@ -33,3 +33,17 @@ class LoginForm(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class CommentForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    comment = StringField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Comment')
+
+
+class AddPitchForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    title = StringField('Title', validators=[DataRequired()])
+    content = StringField('Pitch Content', validators=[DataRequired()])
+    category_name = StringField('Pitch Category', validators=[DataRequired()])
+    submit = SubmitField('Add Pitch')

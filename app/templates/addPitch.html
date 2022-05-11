@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+<div class="container pb-5">
+    {% block content %}
+
+     <div class="container-fluid">
+            <h3 class="text-center">Add a Pitch</h3>
+        <div class="container">
+            <div class="col-lg-6 col-md-4 col-sm-4 container justify-content-center">
+              <div class="col">
+                     <form class="form-register" method="POST" >
+                {{ form.hidden_tag() }}
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control", placeholder="User Email")}}
+
+                {{ form.title.label(class="form-control-label") }}
+                {{ form.title(class="form-control", placeholder="Pitch Title") }}
+
+                {{ form.content.label(class="form-control-label") }}
+                {{ form.content(class="form-control", placeholder="Pitch It here") }}
+
+                {{ form.category_name.label(class="form-control-label") }}
+                {{ form.category_name(class="form-control", placeholder="Categorize") }}
+
+                         <br>
+                <div class="col text-center">
+                {{ form.submit(class="btn bg-success") }}
+                </div>
+                <div class="col text-center">
+                 <h3>Don't Have an Account yet?</h3>
+                    <a href="{{ url_for ('signUp_page') }}">Sign Up Here</a>
+                </div>
+              </form>
+            </div>
+
+        </div>
+    </div>
+   </div>
+    {% endblock %}
+</div>

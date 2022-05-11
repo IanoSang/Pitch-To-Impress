@@ -3,14 +3,16 @@
 Registaration Page
 {% endblock %}
 
+<div class="container pb-5">
 {%block content %}
+
 <body>
     <div class="container-fluid">
         <h3 class="text-center">Sign Up Here</h3>
         <div class="container">
             <div class="col-lg-6 col-md-4 col-sm-4 container justify-content-center">
                  <div class="col">
-                     <form class="form-register" method="POST" style="color: white;">
+                     <form class="form-register" method="POST" >
                 {{ form.hidden_tag() }}
                 {{form.username.label}}
                 {{form.username( class="form-control", placeholder="User Name" )}}
@@ -20,11 +22,9 @@ Registaration Page
                 {{form.password1(class="form-control", placeholder="Password" )}}
                 {{form.password2.label}}
                 {{form.password2(class="form-control", placeholder="Confirm Password" )}}
-                <br>
                 <div class="col text-center">
                 {{form.submit(class="btn btn-primary btn-center")}}
                 </div>
-                <br>
                 <div class="col text-center">
                  <h3>Already have an account?</h3>
                     <a class="btn btn-sn btn-success mb-3" href="{{url_for('login_page')}}">Sign In</a>
@@ -37,3 +37,4 @@ Registaration Page
     </div>
 </body>
 {% endblock %}
+</div>

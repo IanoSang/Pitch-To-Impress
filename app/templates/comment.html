@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+          <h1 class="text-primary">Add your comment</h1>
+    <div class="col-lg-6">
+        <form action="" method="POST" class="centerForm">
+            {{form.hidden_tag()}}
+            <fieldset>
+                <div class="form-group">
+                    <p>{{ form.email.label(class="form-control-label")}}</p>
+                    <p>{{ form.email(class="form-control-input") }}</p>
+                </div>
+
+                <div class="form-group">
+                    <p>{{ form.comment.label(class="form-control-label")}}</p>
+                    <p>{{ form.comment(class="form-control-textarea") }}</p>
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn bg-primary")}}
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+
+
+
+
+{% endblock %}
